@@ -74,6 +74,12 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         return textField
     }()
     
+    fileprivate lazy var passwordTextField: TitledTextField = {
+        let textField = TitledTextField(placeholder: NSLocalizedString("Password", comment: ""))
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -118,39 +124,72 @@ extension LoginViewController {
         contentView.addSubview(backgroundImageView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(usernameTextField)
+        contentView.addSubview(passwordTextField)
     }
     
     fileprivate func configureConstraints() {
+        
+        configureScrollViewConstraints()
+        configureContentViewConstraints()
+        configureBackgroundImageViewConstraints()
+        configureLogoImageViewConstraints()
+        configureUsernameTextFieldConstraints()
+        configurePasswordTextFieldConstraints()
+    }
+    
+    func configureScrollViewConstraints() {
         NSLayoutConstraint.activate([
-//            loginButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
-//            loginButton.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor)
-            
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    func configureContentViewConstraints() {
+        NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        ])
+    }
+    
+    func configureBackgroundImageViewConstraints() {
+        NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            backgroundImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2),
-            
+            backgroundImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
+        ])
+    }
+    
+    func configureLogoImageViewConstraints() {
+        NSLayoutConstraint.activate([
             logoImageView.centerYAnchor.constraint(equalTo: backgroundImageView.centerYAnchor, constant: 30),
             logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            logoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
+            logoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+    
+    func configureUsernameTextFieldConstraints() {
+        NSLayoutConstraint.activate([
             usernameTextField.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 40),
-            contentView.bottomAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 40),
+//            contentView.bottomAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 40),
             usernameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             contentView.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor, constant: 20),
             usernameTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
+    func configurePasswordTextFieldConstraints() {
+        NSLayoutConstraint.activate([
+            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
+            contentView.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
+            passwordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            contentView.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 20),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
 }
