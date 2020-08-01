@@ -64,8 +64,8 @@ class TitledTextField: UITextField {
         setup()
     }
     
-    init(placeholder: String) {
-        self.init()
+    convenience init(placeholder: String) {
+        self.init(frame: CGRect.zero)
         placeholderText = placeholder
     }
     
@@ -109,7 +109,7 @@ class TitledTextField: UITextField {
         newRect.size.height = placeholderHeight
         placeholderLabel.frame = newRect
         placeholderLabel.font = UIFont.systemFont(ofSize: 16)
-        placeholderLabel.textColor = .black
+        placeholderLabel.textColor = .darkGray
     }
     
     /// Setting text to textField.
@@ -181,7 +181,7 @@ extension TitledTextField {
             let newWidth = self.frame.width * self.scale
             self.placeholderLabel.transform = self.placeholderLabel.transform.scaledBy( x: self.scale, y: self.scale)
             self.placeholderLabel.frame = CGRect(x: 0, y: 6, width: newWidth, height: self.placeholderHeight)
-            self.placeholderLabel.textColor = UIColor.darkGray
+            self.placeholderLabel.textColor = UIColor.black
         }
     }
     
@@ -198,7 +198,7 @@ extension TitledTextField {
             newRect.origin.y = self.padding.top
             newRect.size.height = self.placeholderHeight
             self.placeholderLabel.frame = newRect
-            self.placeholderLabel.textColor = .gray
+            self.placeholderLabel.textColor = .darkGray
         }
     }
 }
