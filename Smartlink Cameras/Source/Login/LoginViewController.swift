@@ -77,9 +77,16 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     fileprivate lazy var usernameTextField: TitledTextField = {
         let textField = TitledTextField(placeholder: NSLocalizedString("Username", comment: ""))
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.rx.controlEvent(.editingChanged).subscribe { (onNext) in
-            print(textField.text!)
-        }.disposed(by: disposeBag)
+        textField.autocapitalizationType = .none
+        
+        textField.rx.text.orEmpty
+            .throttle(RxSwift.RxTimeInterval.seconds(3), scheduler: MainScheduler.instance)
+        .subscribe(onNext: { username in
+            if !username.isEmpty {
+                self.getBaseUrl(username: username)
+            }
+        }, onDisposed: nil)
+        .disposed(by: disposeBag)
         
         textField.rx.controlEvent(.editingDidEndOnExit).subscribe { (onNext) in
             self.focusOnPasswordTextField()
@@ -90,6 +97,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     fileprivate lazy var passwordTextField: TitledTextField = {
         let textField = TitledTextField(placeholder: NSLocalizedString("Password", comment: ""))
+        textField.isSecureTextEntry = true
         
         textField.rx.controlEvent(.editingDidEndOnExit).subscribe { (onNext) in
             self.endEditing()
@@ -150,9 +158,25 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         observableHeight.subscribe { (onNext) in
             if let height = onNext.element {
                 self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-            print("HEIGHT ELEMENT:",height)
             }
         }.disposed(by: disposeBag)
+    }
+    
+    func getBaseUrl(username: String) {
+        let url = "http://registration.securenettech.com/registration.php"
+        let usernameParams = UsernameParameters(username: username)
+        let requestData = RestApiData(url: url, httpMethod: .post, parameters: usernameParams)
+        APIService().call(requestData: requestData) { (response: Result<EnvironmentResponse>) in
+            DispatchQueue.main.async {
+                print("Base Url:")
+                switch response {
+                case .success(let result):
+                    print(result.platform.baseURL)
+                case .failure(let error):
+                    print(error.error)
+                }
+            }
+        }
     }
 
     deinit {

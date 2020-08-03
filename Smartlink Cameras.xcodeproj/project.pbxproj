@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9519E67524D5FFB200972B5B /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519E67424D5FFB200972B5B /* TitledTextField.swift */; };
+		95D3CF6A24D7FD680086827C /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D3CF6924D7FD680086827C /* URLRequest.swift */; };
 		FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */; };
 		FB0E4C2423C8CA8D003E70B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2323C8CA8D003E70B0 /* SceneDelegate.swift */; };
 		FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2523C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		9519E67424D5FFB200972B5B /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
+		95D3CF6924D7FD680086827C /* URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
 		FB0E4C1E23C8CA8D003E70B0 /* Smartlink Cameras.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smartlink Cameras.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB0E4C2323C8CA8D003E70B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				FBB4296023C8D684002EF467 /* RxSwift+Extensions.swift */,
 				FBB4295F23C8D684002EF467 /* UIWindow+Extensions.swift */,
 				FBB4296123C8D684002EF467 /* UserDefaults+Extensions.swift */,
+				95D3CF6924D7FD680086827C /* URLRequest.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				FBB4295623C8D2FE002EF467 /* AppDependency.swift in Sources */,
 				FBB4295423C8D280002EF467 /* AppCoordinator.swift in Sources */,
 				FBB4296D23C8D949002EF467 /* MainTabBarController.swift in Sources */,
+				95D3CF6A24D7FD680086827C /* URLRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
