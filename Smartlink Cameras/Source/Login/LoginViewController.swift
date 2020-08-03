@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxCocoa
 import UIKit
 
 final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
@@ -32,8 +33,9 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     fileprivate lazy var loginButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(NSLocalizedString("Login", comment: "Login button text"), for: .normal)
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitle(NSLocalizedString("Sign In", comment: ""), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.2772967219, green: 0.4145590663, blue: 0.4646431804, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -49,6 +51,10 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        contentView.addGestureRecognizer(tapGesture)
+        
         return contentView
     }()
     
@@ -71,11 +77,23 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     fileprivate lazy var usernameTextField: TitledTextField = {
         let textField = TitledTextField(placeholder: NSLocalizedString("Username", comment: ""))
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.rx.controlEvent(.editingChanged).subscribe { (onNext) in
+            print(textField.text!)
+        }.disposed(by: disposeBag)
+        
+        textField.rx.controlEvent(.editingDidEndOnExit).subscribe { (onNext) in
+            self.focusOnPasswordTextField()
+        }.disposed(by: disposeBag)
+        
         return textField
     }()
     
     fileprivate lazy var passwordTextField: TitledTextField = {
         let textField = TitledTextField(placeholder: NSLocalizedString("Password", comment: ""))
+        
+        textField.rx.controlEvent(.editingDidEndOnExit).subscribe { (onNext) in
+            self.endEditing()
+        }.disposed(by: disposeBag)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -102,10 +120,40 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         configureAppearance()
+        handleKeyboardAppearance()
     }
     
+    // MARK: textFields handling
+    @objc func endEditing() {
+        view.endEditing(true)
+    }
+    
+    @objc func focusOnPasswordTextField() {
+        passwordTextField.becomeFirstResponder()
+    }
+    
+    func handleKeyboardAppearance() {
+        let observableHeight = Observable
+                .from([
+                    NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
+                                .map { notification -> CGFloat in
+                                    (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+                                },
+                        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
+                                .map { _ -> CGFloat in
+                                    0
+                                }
+                ])
+                .merge()
+        
+        observableHeight.subscribe { (onNext) in
+            if let height = onNext.element {
+                self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+            print("HEIGHT ELEMENT:",height)
+            }
+        }.disposed(by: disposeBag)
+    }
 
     deinit {
         
@@ -118,13 +166,13 @@ extension LoginViewController {
     fileprivate func configureAppearance() {
         view.backgroundColor = .orange
         
-//        view.addSubview(loginButton)
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(backgroundImageView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(usernameTextField)
         contentView.addSubview(passwordTextField)
+        contentView.addSubview(loginButton)
     }
     
     fileprivate func configureConstraints() {
@@ -135,6 +183,7 @@ extension LoginViewController {
         configureLogoImageViewConstraints()
         configureUsernameTextFieldConstraints()
         configurePasswordTextFieldConstraints()
+        configureSigninButtonConstraints()
     }
     
     func configureScrollViewConstraints() {
@@ -147,12 +196,16 @@ extension LoginViewController {
     }
     
     func configureContentViewConstraints() {
+        let heightConstraint = contentView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        heightConstraint.priority = UILayoutPriority(rawValue: 250)
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            heightConstraint
+            
         ])
     }
     
@@ -176,20 +229,28 @@ extension LoginViewController {
     func configureUsernameTextFieldConstraints() {
         NSLayoutConstraint.activate([
             usernameTextField.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 40),
-//            contentView.bottomAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 40),
             usernameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             contentView.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor, constant: 20),
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50)
+            usernameTextField.heightAnchor.constraint(equalToConstant: 72)
         ])
     }
     
     func configurePasswordTextFieldConstraints() {
         NSLayoutConstraint.activate([
-            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
-            contentView.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
+            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor),
             passwordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             contentView.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: 20),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 72)
+        ])
+    }
+    
+    func configureSigninButtonConstraints() {
+        NSLayoutConstraint.activate([
+            loginButton.topAnchor.constraint(greaterThanOrEqualTo: passwordTextField.bottomAnchor, constant: 60),
+            contentView.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
+            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            contentView.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor, constant: 20),
+            loginButton.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
 }
