@@ -106,6 +106,70 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         return textField
     }()
     
+    fileprivate lazy var checkmarkView: UIView = {
+        let checkmarkView = UIView()
+        checkmarkView.layer.borderColor = UIColor.lightGray.cgColor
+        checkmarkView.layer.borderWidth = 1
+        checkmarkView.backgroundColor = .white
+        checkmarkView.translatesAutoresizingMaskIntoConstraints = false
+        return checkmarkView
+    }()
+    
+    fileprivate lazy var stackView: UIView = {
+        let label = UILabel()
+        label.text = "Remember Me".localized()
+        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView(arrangedSubviews: [checkmarkView, label])
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        
+        checkmarkView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        checkmarkView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(rememberMe))
+        stackView.addGestureRecognizer(tapGesture)
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    fileprivate lazy var forgotPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Forgot Password?".localized()
+        label.textColor = .darkGray
+        label.textAlignment = .right
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(forgotPassword))
+        label.addGestureRecognizer(tapGesture)
+        
+        return label
+    }()
+    
+    fileprivate lazy var getStartedLabel: UILabel = {
+        let attrString = NSMutableAttributedString(string: "Installing a DIY System? ".localized(),
+                                                   attributes: [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)])
+
+        attrString.append(NSMutableAttributedString(string: "Get Started".localized(),
+                                                    attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)]))
+        let label = UILabel()
+        label.attributedText = attrString
+        label.textColor = .darkGray
+        label.textAlignment = .center
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getStarted))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -133,15 +197,15 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     }
     
     // MARK: textFields handling
-    @objc func endEditing() {
+    @objc fileprivate func endEditing() {
         view.endEditing(true)
     }
     
-    @objc func focusOnPasswordTextField() {
+    @objc fileprivate func focusOnPasswordTextField() {
         passwordTextField.becomeFirstResponder()
     }
     
-    func handleKeyboardAppearance() {
+    fileprivate func handleKeyboardAppearance() {
         let observableHeight = Observable
                 .from([
                     NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
@@ -162,7 +226,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         }.disposed(by: disposeBag)
     }
     
-    func getBaseUrl(username: String) {
+    fileprivate func getBaseUrl(username: String) {
         let url = "http://registration.securenettech.com/registration.php"
         let usernameParams = UsernameParameters(username: username)
         let requestData = RestApiData(url: url, httpMethod: .post, parameters: usernameParams)
@@ -177,6 +241,18 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
                 }
             }
         }
+    }
+    
+    @objc fileprivate func rememberMe() {
+        checkmarkView.backgroundColor = checkmarkView.backgroundColor == .white ? .green : .white
+    }
+    
+    @objc fileprivate func forgotPassword() {
+        
+    }
+    
+    @objc fileprivate func getStarted() {
+        
     }
 
     deinit {
@@ -196,7 +272,10 @@ extension LoginViewController {
         contentView.addSubview(logoImageView)
         contentView.addSubview(usernameTextField)
         contentView.addSubview(passwordTextField)
+        contentView.addSubview(stackView)
+        contentView.addSubview(forgotPasswordLabel)
         contentView.addSubview(loginButton)
+        contentView.addSubview(getStartedLabel)
     }
     
     fileprivate func configureConstraints() {
@@ -207,7 +286,10 @@ extension LoginViewController {
         configureLogoImageViewConstraints()
         configureUsernameTextFieldConstraints()
         configurePasswordTextFieldConstraints()
+        configureStackViewConstraints()
+        configureForgotPasswordLabelConstraints()
         configureSigninButtonConstraints()
+        configureGetStartedLabelConstraints()
     }
     
     func configureScrollViewConstraints() {
@@ -268,13 +350,37 @@ extension LoginViewController {
         ])
     }
     
+    func configureStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30)
+        ])
+    }
+    
+    func configureForgotPasswordLabelConstraints() {
+        NSLayoutConstraint.activate([
+            forgotPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            contentView.trailingAnchor.constraint(equalTo: forgotPasswordLabel.trailingAnchor, constant: 30),
+            forgotPasswordLabel.leadingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10)
+        ])
+    }
+    
     func configureSigninButtonConstraints() {
         NSLayoutConstraint.activate([
             loginButton.topAnchor.constraint(greaterThanOrEqualTo: passwordTextField.bottomAnchor, constant: 60),
-            contentView.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             contentView.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor, constant: 20),
             loginButton.heightAnchor.constraint(equalToConstant: 55)
+        ])
+    }
+    
+    func configureGetStartedLabelConstraints() {
+        NSLayoutConstraint.activate([
+            getStartedLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            contentView.bottomAnchor.constraint(equalTo: getStartedLabel.bottomAnchor, constant: 30),
+            getStartedLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            contentView.trailingAnchor.constraint(equalTo: getStartedLabel.trailingAnchor, constant: 20),
+            getStartedLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }
