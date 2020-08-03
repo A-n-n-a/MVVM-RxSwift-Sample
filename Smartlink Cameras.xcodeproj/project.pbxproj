@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		9519E67524D5FFB200972B5B /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519E67424D5FFB200972B5B /* TitledTextField.swift */; };
 		952F4F7F24D858E500F954EC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F7E24D858E500F954EC /* String.swift */; };
+		952F4F8224D87BEA00F954EC /* SCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8124D87BEA00F954EC /* SCError.swift */; };
+		952F4F8424D87C0800F954EC /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8324D87C0800F954EC /* Platform.swift */; };
+		952F4F8624D87C1900F954EC /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8524D87C1900F954EC /* Server.swift */; };
+		952F4F8824D87C2700F954EC /* EnvironmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8724D87C2700F954EC /* EnvironmentResponse.swift */; };
+		952F4F8A24D87C4600F954EC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8924D87C4600F954EC /* Result.swift */; };
+		952F4F8C24D87C6B00F954EC /* ParametersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */; };
+		952F4F8E24D87C7F00F954EC /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8D24D87C7F00F954EC /* HttpMethod.swift */; };
+		952F4F9024D87C9D00F954EC /* RestApiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8F24D87C9D00F954EC /* RestApiData.swift */; };
 		95D3CF6A24D7FD680086827C /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D3CF6924D7FD680086827C /* URLRequest.swift */; };
 		FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */; };
 		FB0E4C2423C8CA8D003E70B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2323C8CA8D003E70B0 /* SceneDelegate.swift */; };
@@ -60,6 +68,14 @@
 /* Begin PBXFileReference section */
 		9519E67424D5FFB200972B5B /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		952F4F7E24D858E500F954EC /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		952F4F8124D87BEA00F954EC /* SCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCError.swift; sourceTree = "<group>"; };
+		952F4F8324D87C0800F954EC /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		952F4F8524D87C1900F954EC /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		952F4F8724D87C2700F954EC /* EnvironmentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentResponse.swift; sourceTree = "<group>"; };
+		952F4F8924D87C4600F954EC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersProtocol.swift; sourceTree = "<group>"; };
+		952F4F8D24D87C7F00F954EC /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		952F4F8F24D87C9D00F954EC /* RestApiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiData.swift; sourceTree = "<group>"; };
 		95D3CF6924D7FD680086827C /* URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
 		FB0E4C1E23C8CA8D003E70B0 /* Smartlink Cameras.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smartlink Cameras.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +149,17 @@
 				9519E67424D5FFB200972B5B /* TitledTextField.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		952F4F8024D87BDA00F954EC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				952F4F8124D87BEA00F954EC /* SCError.swift */,
+				952F4F8324D87C0800F954EC /* Platform.swift */,
+				952F4F8524D87C1900F954EC /* Server.swift */,
+				952F4F8724D87C2700F954EC /* EnvironmentResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FB0E4C1523C8CA8D003E70B0 = {
@@ -210,6 +237,7 @@
 		FBB4294A23C8CEF8002EF467 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				952F4F8024D87BDA00F954EC /* Models */,
 				9519E67324D5FD2B00972B5B /* Views */,
 				FBB4294B23C8CF04002EF467 /* Application */,
 				FBB4294D23C8D1B6002EF467 /* Common */,
@@ -280,6 +308,10 @@
 			isa = PBXGroup;
 			children = (
 				FBB4295C23C8D554002EF467 /* APIService.swift */,
+				952F4F8924D87C4600F954EC /* Result.swift */,
+				952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */,
+				952F4F8D24D87C7F00F954EC /* HttpMethod.swift */,
+				952F4F8F24D87C9D00F954EC /* RestApiData.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -482,21 +514,29 @@
 				FBB4296923C8D89C002EF467 /* LoginViewController.swift in Sources */,
 				FBB4296323C8D684002EF467 /* RxSwift+Extensions.swift in Sources */,
 				FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */,
+				952F4F8824D87C2700F954EC /* EnvironmentResponse.swift in Sources */,
 				FBB4296223C8D684002EF467 /* UIWindow+Extensions.swift in Sources */,
 				FBB4295923C8D455002EF467 /* UserService.swift in Sources */,
 				FBB4297223C8DEFA002EF467 /* LoginViewModel.swift in Sources */,
+				952F4F8424D87C0800F954EC /* Platform.swift in Sources */,
 				9519E67524D5FFB200972B5B /* TitledTextField.swift in Sources */,
 				FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */,
 				FBB4296B23C8D8F7002EF467 /* MainCoordinator.swift in Sources */,
+				952F4F8C24D87C6B00F954EC /* ParametersProtocol.swift in Sources */,
+				952F4F8A24D87C4600F954EC /* Result.swift in Sources */,
 				FBB4297023C8DEE4002EF467 /* ViewModelType.swift in Sources */,
 				FBB4295223C8D229002EF467 /* ActivityIndicator.swift in Sources */,
+				952F4F8224D87BEA00F954EC /* SCError.swift in Sources */,
 				FBB4295D23C8D554002EF467 /* APIService.swift in Sources */,
 				FB0E4C2423C8CA8D003E70B0 /* SceneDelegate.swift in Sources */,
 				FBB4295623C8D2FE002EF467 /* AppDependency.swift in Sources */,
 				FBB4295423C8D280002EF467 /* AppCoordinator.swift in Sources */,
 				952F4F7F24D858E500F954EC /* String.swift in Sources */,
+				952F4F8E24D87C7F00F954EC /* HttpMethod.swift in Sources */,
 				FBB4296D23C8D949002EF467 /* MainTabBarController.swift in Sources */,
+				952F4F8624D87C1900F954EC /* Server.swift in Sources */,
 				95D3CF6A24D7FD680086827C /* URLRequest.swift in Sources */,
+				952F4F9024D87C9D00F954EC /* RestApiData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,7 +33,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     fileprivate lazy var loginButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(NSLocalizedString("Sign In", comment: ""), for: .normal)
+        button.setTitle("Sign In".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2772967219, green: 0.4145590663, blue: 0.4646431804, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +43,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     fileprivate lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.contentInsetAdjustmentBehavior = .never
+        scroll.delegate = self
         scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
@@ -75,7 +76,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     }()
     
     fileprivate lazy var usernameTextField: TitledTextField = {
-        let textField = TitledTextField(placeholder: NSLocalizedString("Username", comment: ""))
+        let textField = TitledTextField(placeholder: "Username".localized())
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocapitalizationType = .none
         
@@ -96,7 +97,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     }()
     
     fileprivate lazy var passwordTextField: TitledTextField = {
-        let textField = TitledTextField(placeholder: NSLocalizedString("Password", comment: ""))
+        let textField = TitledTextField(placeholder: "Password".localized())
         textField.isSecureTextEntry = true
         
         textField.rx.controlEvent(.editingDidEndOnExit).subscribe { (onNext) in
@@ -108,7 +109,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     fileprivate lazy var checkmarkView: UIView = {
         let checkmarkView = UIView()
-        checkmarkView.layer.borderColor = UIColor.lightGray.cgColor
+        checkmarkView.layer.borderColor = #colorLiteral(red: 0.5528972149, green: 0.5529660583, blue: 0.5528737307, alpha: 1).cgColor
         checkmarkView.layer.borderWidth = 1
         checkmarkView.backgroundColor = .white
         checkmarkView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +119,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     fileprivate lazy var stackView: UIView = {
         let label = UILabel()
         label.text = "Remember Me".localized()
-        label.textColor = .darkGray
+        label.textColor = #colorLiteral(red: 0.5528972149, green: 0.5529660583, blue: 0.5528737307, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -139,7 +140,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     fileprivate lazy var forgotPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "Forgot Password?".localized()
-        label.textColor = .darkGray
+        label.textColor = #colorLiteral(red: 0.5528972149, green: 0.5529660583, blue: 0.5528737307, alpha: 1)
         label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 18)
         label.isUserInteractionEnabled = true
@@ -159,7 +160,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
                                                     attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)]))
         let label = UILabel()
         label.attributedText = attrString
-        label.textColor = .darkGray
+        label.textColor = #colorLiteral(red: 0.5528972149, green: 0.5529660583, blue: 0.5528737307, alpha: 1)
         label.textAlignment = .center
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getStarted))
@@ -243,6 +244,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         }
     }
     
+    // MARK: Handling Gestures 
     @objc fileprivate func rememberMe() {
         checkmarkView.backgroundColor = checkmarkView.backgroundColor == .white ? .green : .white
     }
@@ -382,5 +384,19 @@ extension LoginViewController {
             contentView.trailingAnchor.constraint(equalTo: getStartedLabel.trailingAnchor, constant: 20),
             getStartedLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
+    }
+}
+
+extension LoginViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let maxOffset = scrollView.contentSize.height - UIScreen.main.bounds.height
+        if scrollView.contentOffset.y < 0 {
+            scrollView.contentOffset.y = 0
+        }
+        
+        if scrollView.contentOffset.y > maxOffset {
+            scrollView.contentOffset.y = maxOffset
+        }
     }
 }

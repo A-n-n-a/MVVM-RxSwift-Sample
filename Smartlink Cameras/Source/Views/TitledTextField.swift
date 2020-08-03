@@ -13,7 +13,6 @@ class TitledTextField: UITextField {
     private let scale: CGFloat = 0.88
     private let placeholderHeight: CGFloat = 22
     private let defaultHeight: CGFloat = 72
-    private let bottomButtonHeight: CGFloat = 20
     
     private var placeholderLabel = UILabel()
     private var separatorView = UIView()
@@ -36,9 +35,9 @@ class TitledTextField: UITextField {
             if self.placeholderLabel.bounds.size.width == 0 {
                 self.placeholderLabel.sizeToFit()
                 self.placeholderLabel.frame = CGRect(x: 0,
-                                                     y: self.placeholderLabel.frame.origin.y,
-                                                     width: self.placeholderLabel.frame.width,
-                                                     height: self.placeholderHeight)
+                    y: self.placeholderLabel.frame.origin.y,
+                    width: self.placeholderLabel.frame.width,
+                    height: self.placeholderHeight)
             }
         }
     }
@@ -85,7 +84,7 @@ class TitledTextField: UITextField {
     private func mainSetup() {
         borderStyle = .none
         contentVerticalAlignment = .top
-        tintColor = UIColor.black
+        tintColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
         heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: defaultHeight)
         heightConstraint.priority = UILayoutPriority.init(900)
 
@@ -94,12 +93,12 @@ class TitledTextField: UITextField {
     
     private func prepareSeparator() {
         addSubview(separatorView)
-        separatorView.backgroundColor = .black
+        separatorView.backgroundColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([separatorView.leftAnchor.constraint(equalTo: leftAnchor),
-                                     separatorView.rightAnchor.constraint(equalTo: rightAnchor),
-                                     separatorView.topAnchor.constraint(equalTo: topAnchor, constant: 63),
-                                     separatorView.heightAnchor.constraint(equalToConstant: 1)])
+            separatorView.rightAnchor.constraint(equalTo: rightAnchor),
+            separatorView.topAnchor.constraint(equalTo: topAnchor, constant: 63),
+            separatorView.heightAnchor.constraint(equalToConstant: 1)])
     }
     
     private func prepareCustomPlaceholder() {
@@ -108,8 +107,8 @@ class TitledTextField: UITextField {
         newRect.origin.y = padding.top
         newRect.size.height = placeholderHeight
         placeholderLabel.frame = newRect
-        placeholderLabel.font = UIFont.systemFont(ofSize: 16)
-        placeholderLabel.textColor = .darkGray
+        placeholderLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        placeholderLabel.textColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
     }
     
     /// Setting text to textField.
@@ -181,7 +180,7 @@ extension TitledTextField {
             let newWidth = self.frame.width * self.scale
             self.placeholderLabel.transform = self.placeholderLabel.transform.scaledBy( x: self.scale, y: self.scale)
             self.placeholderLabel.frame = CGRect(x: 0, y: 6, width: newWidth, height: self.placeholderHeight)
-            self.placeholderLabel.textColor = UIColor.black
+            self.placeholderLabel.textColor = #colorLiteral(red: 0.5528972149, green: 0.5529660583, blue: 0.5528737307, alpha: 1)
         }
     }
     
@@ -198,7 +197,7 @@ extension TitledTextField {
             newRect.origin.y = self.padding.top
             newRect.size.height = self.placeholderHeight
             self.placeholderLabel.frame = newRect
-            self.placeholderLabel.textColor = .darkGray
+            self.placeholderLabel.textColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
         }
     }
 }
