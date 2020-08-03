@@ -228,20 +228,22 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     }
     
     fileprivate func getBaseUrl(username: String) {
-        let url = "http://registration.securenettech.com/registration.php"
-        let usernameParams = UsernameParameters(username: username)
-        let requestData = RestApiData(url: url, httpMethod: .post, parameters: usernameParams)
-        APIService().call(requestData: requestData) { (response: Result<EnvironmentResponse>) in
-            DispatchQueue.main.async {
-                print("Base Url:")
-                switch response {
-                case .success(let result):
-                    print(result.platform.baseURL)
-                case .failure(let error):
-                    print(error.error)
-                }
-            }
-        }
+        let vm = self.attach(wrapper: viewModel)
+        vm.getBaseUrl(username: username)
+//        let url = "http://registration.securenettech.com/registration.php"
+//        let usernameParams = UsernameParameters(username: username)
+//        let requestData = RestApiData(url: url, httpMethod: .post, parameters: usernameParams)
+//        APIService().call(requestData: requestData) { (response: Result<EnvironmentResponse>) in
+//            DispatchQueue.main.async {
+//                print("Base Url:")
+//                switch response {
+//                case .success(let result):
+//                    print(result.platform.baseURL)
+//                case .failure(let error):
+//                    print(error.error)
+//                }
+//            }
+//        }
     }
     
     // MARK: Handling Gestures 
