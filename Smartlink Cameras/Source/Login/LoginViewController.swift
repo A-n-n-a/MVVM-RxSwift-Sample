@@ -81,7 +81,7 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         textField.autocapitalizationType = .none
         
         textField.rx.text.orEmpty
-            .throttle(RxSwift.RxTimeInterval.seconds(3), scheduler: MainScheduler.instance)
+            .debounce(RxSwift.RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
         .subscribe(onNext: { username in
             if !username.isEmpty {
                 self.getBaseUrl(username: username)
