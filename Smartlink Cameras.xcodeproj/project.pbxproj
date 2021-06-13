@@ -13,7 +13,6 @@
 		952F4F8424D87C0800F954EC /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8324D87C0800F954EC /* Platform.swift */; };
 		952F4F8624D87C1900F954EC /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8524D87C1900F954EC /* Server.swift */; };
 		952F4F8824D87C2700F954EC /* EnvironmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8724D87C2700F954EC /* EnvironmentResponse.swift */; };
-		952F4F8A24D87C4600F954EC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8924D87C4600F954EC /* Result.swift */; };
 		952F4F8C24D87C6B00F954EC /* ParametersProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */; };
 		952F4F8E24D87C7F00F954EC /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8D24D87C7F00F954EC /* HttpMethod.swift */; };
 		952F4F9024D87C9D00F954EC /* RestApiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F4F8F24D87C9D00F954EC /* RestApiData.swift */; };
@@ -72,7 +71,6 @@
 		952F4F8324D87C0800F954EC /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		952F4F8524D87C1900F954EC /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		952F4F8724D87C2700F954EC /* EnvironmentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentResponse.swift; sourceTree = "<group>"; };
-		952F4F8924D87C4600F954EC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersProtocol.swift; sourceTree = "<group>"; };
 		952F4F8D24D87C7F00F954EC /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		952F4F8F24D87C9D00F954EC /* RestApiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiData.swift; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				FBB4295C23C8D554002EF467 /* APIService.swift */,
-				952F4F8924D87C4600F954EC /* Result.swift */,
 				952F4F8B24D87C6B00F954EC /* ParametersProtocol.swift */,
 				952F4F8D24D87C7F00F954EC /* HttpMethod.swift */,
 				952F4F8F24D87C9D00F954EC /* RestApiData.swift */,
@@ -523,7 +520,6 @@
 				FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */,
 				FBB4296B23C8D8F7002EF467 /* MainCoordinator.swift in Sources */,
 				952F4F8C24D87C6B00F954EC /* ParametersProtocol.swift in Sources */,
-				952F4F8A24D87C4600F954EC /* Result.swift in Sources */,
 				FBB4297023C8DEE4002EF467 /* ViewModelType.swift in Sources */,
 				FBB4295223C8D229002EF467 /* ActivityIndicator.swift in Sources */,
 				952F4F8224D87BEA00F954EC /* SCError.swift in Sources */,
