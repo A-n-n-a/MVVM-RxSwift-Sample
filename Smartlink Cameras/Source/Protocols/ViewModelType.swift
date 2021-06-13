@@ -31,7 +31,7 @@ protocol ViewModelProtocol {
     init(dependency: Dependency, bindings: Bindings)
 }
 
-protocol ViewModelAttachingProtocol: class {
+protocol ViewModelAttachingProtocol: AnyObject {
     associatedtype ViewModel: ViewModelProtocol
     
     var bindings: ViewModel.Bindings { get }

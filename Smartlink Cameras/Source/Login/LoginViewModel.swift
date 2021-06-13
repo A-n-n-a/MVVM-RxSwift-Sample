@@ -28,14 +28,14 @@ final class LoginViewModel: ViewModelProtocol {
         let url = "http://registration.securenettech.com/registration.php"
         let usernameParams = UsernameParameters(username: username)
         let requestData = RestApiData(url: url, httpMethod: .post, parameters: usernameParams)
-        APIService().call(requestData: requestData) { (response: Result<EnvironmentResponse>) in
+        APIService().call(requestData: requestData) { (response: Result<EnvironmentResponse, Error>) in
             DispatchQueue.main.async {
                 print("Base Url:")
                 switch response {
                 case .success(let result):
                     print(result.platform.baseURL)
                 case .failure(let error):
-                    print(error.error)
+                    print(error.localizedDescription, " username:", username)
                 }
             }
         }

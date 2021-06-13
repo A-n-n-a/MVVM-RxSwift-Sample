@@ -10,7 +10,7 @@ import Foundation
 
 protocol APIServiceProtocol {
     
-    func call<T: Decodable>(requestData: RestApiData, completion: @escaping (_ result: Result<T>) -> Void)
+    func call<T: Decodable>(requestData: RestApiData, completion: @escaping (_ result: Result<T, Error>) -> Void)
 }
 
 final class APIService: APIServiceProtocol {
@@ -21,7 +21,7 @@ final class APIService: APIServiceProtocol {
         
     }
     
-    func call<T: Decodable>(requestData: RestApiData, completion: @escaping (_ result: Result<T>) -> Void) {
+    func call<T: Decodable>(requestData: RestApiData, completion: @escaping (_ result: Result<T, Error>) -> Void) {
             guard let request = request(requestData: requestData) else {
                 return
             }
